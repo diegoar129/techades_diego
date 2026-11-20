@@ -29,6 +29,8 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
+El último comando instala todas las dependencias del proyecto, incluido `python-dotenv` (el módulo `dotenv` que usa `app.py`). Si aparece un error `ModuleNotFoundError`, active `.venv` y vuelva a ejecutar `python -m pip install -r requirements.txt` desde esta carpeta. Use `python -m pip` para instalar con el mismo intérprete que luego ejecutará la aplicación.
+
 Si `.venv` ya existe, no es necesario volver a crearla. En cada terminal nueva, actívela antes de ejecutar el portal.
 
 Configure un archivo `.env` en esta misma carpeta. Si no existe, créelo con el Bloc de notas y complete los datos de conexión:
@@ -72,7 +74,7 @@ Abra http://127.0.0.1:5000 . Sin sesión, cualquier página lleva a `/login`. Pa
 - **Clientes:** búsqueda, registro e historial. El correo del taller `andres.gomez1@correo.com` ya existe.
 - **Nueva venta:** pedido en una transacción. Descuenta stock y guarda el precio del momento.
 - **Pedidos:** consulta y cambio de estado. Al cancelar, las unidades vuelven al inventario.
-- **Informes:** solo administrador. Ventas por categoría y ranking de vendedores. En el Top 5, los botones **Unidades** y **Total** ordenan de mayor a menor; **Total** es la suma de unidades vendidas por su precio unitario. También muestra clientes sin compras.
+- **Informes:** solo para administradores. Los usuarios `VENDEDOR` no ven el enlace y reciben un error `403` si intentan abrir `/informes/` directamente. Muestra ventas por categoría, ranking de vendedores, Top 5 de productos y clientes sin compras. En el Top 5, los botones **Unidades** y **Total** ordenan de mayor a menor; **Total** es la suma de unidades vendidas por su precio unitario.
 
 ## Cifras del volcado
 

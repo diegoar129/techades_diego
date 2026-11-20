@@ -5,7 +5,7 @@ Hay dos partes: primero la base de datos en MySQL Workbench y después el portal
 La carpeta del proyecto es:
 
 ```text
-C:\Users\USUARIO\Documents\techades_diego
+C:\Users\USUARIO\Documents\techades_diego\Pagina-Techandes-main\techandes-portal
 ```
 
 ## 1. Encender MySQL
@@ -42,9 +42,21 @@ Deben aparecer las tablas `categorias`, `clientes`, `detalle_pedido`, `empleados
 
 Si más adelante vuelves a ejecutar el script 1, ejecuta otra vez el 2. El volcado de tablas no trae `usuarios`.
 
-## 3. Abrir la terminal del proyecto
+## 3. Abrir la terminal del proyecto e instalar dependencias
 
-En Cursor, abre una terminal en la carpeta del proyecto. Si PowerShell dice que la ejecución de scripts está deshabilitada, corre esto una sola vez y vuelve a abrir la terminal:
+En Cursor, abre una terminal y entra a la carpeta del proyecto:
+
+```powershell
+cd C:\Users\USUARIO\Documents\techades_diego\Pagina-Techandes-main\techandes-portal
+```
+
+Si aún no existe `.venv`, créalo:
+
+```powershell
+python -m venv .venv
+```
+
+Si PowerShell dice que la ejecución de scripts está deshabilitada, corre esto una sola vez y vuelve a abrir la terminal:
 
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
@@ -53,16 +65,13 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 Activa el entorno virtual. Hay que hacerlo cada vez que abras una terminal nueva:
 
 ```powershell
-cd C:\Users\johan\techandes-portal
 .\.venv\Scripts\activate
 ```
 
-Cuando está activo, la línea empieza con `(.venv)`.
-
-La primera vez en otro computador también haría falta instalar las librerías. En este equipo ya están instaladas. Si en una máquina nueva falta Flask, ejecuta:
+Cuando está activo, la línea empieza con `(.venv)`. Instala las dependencias del proyecto (incluido `python-dotenv`) con el mismo Python del entorno:
 
 ```powershell
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 El archivo `.env` ya existe y apunta a `localhost`, base `techandes`, usuario `techandes_api` y clave `TechAndes2026*`. No lo subas a GitHub.
@@ -104,10 +113,10 @@ Te lleva a la pantalla de ingreso.
 
 Para probar los dos roles:
 
-1. Entra como `klozada` / `Ventas2026*`. Ves Inicio, Productos, Clientes, Nueva venta y Pedidos. No aparece Informes. Si escribes a mano http://127.0.0.1:5000/informes/ sale el error 403.
+1. Entra como `klozada` / `Ventas2026*`. Ves Inicio, Productos, Clientes, Nueva venta y Pedidos. Informes no aparece para el rol `VENDEDOR`; si escribes manualmente http://127.0.0.1:5000/informes/, la aplicación responde con error `403`.
 2. En Inicio, las ventas efectivas son **$ 66.538.300** y **Mis ventas** dice 12 pedidos por **$ 20.828.100**.
 3. Cierra sesión.
-4. Entra como `mprieto` / `Admin2026*`. Aparecen Informes y los botones de crear, editar y eliminar productos.
+4. Entra como `mprieto` / `Admin2026*`. Aparece Informes y los botones de crear, editar y eliminar productos.
 
 El volcado trae un cliente extra (Esteban Salas Posada, Ibagué). Por eso el inicio muestra **41** clientes y el filtro Ibagué devuelve **11**, no los 40 y 10 del PDF. Las ventas no cambian.
 
@@ -144,6 +153,8 @@ Para volver a usarlo otro día: enciende MySQL, activa `.venv` y ejecuta otra ve
 | `Access denied` o usuario o contraseña incorrectos en el portal, con la clave bien escrita | No corriste `02_permisos.sql`, o el `.env` no coincide. Revisa que `DB_USER` sea `techandes_api` y `DB_PASSWORD` sea `TechAndes2026*`. |
 | `Can't connect` | MySQL está apagado o no está en el puerto 3306. |
 | `Table 'techandes.usuarios' doesn't exist` | Falta ejecutar `sql\01_usuarios.sql`. |
+| Error `403` al entrar a Informes como `VENDEDOR` | Es el comportamiento esperado: Informes está reservado para usuarios `ADMIN`. Cierra sesión e ingresa con una cuenta administradora para acceder. |
 | Usuario o contraseña incorrectos con `klozada` y `Ventas2026*` | Los administradores usan `Admin2026*`. Los asesores usan `Ventas2026*`. Si sigue fallando, vuelve a ejecutar `01_usuarios.sql`. |
 | `Address already in use` o el puerto 5000 ocupado | Ya hay un `python app.py` abierto. Ciérralo con Ctrl + C en esa terminal, o entra directo a http://127.0.0.1:5000. |
+| `ModuleNotFoundError`, por ejemplo `No module named 'dotenv'` | Activa `.venv` y ejecuta `python -m pip install -r requirements.txt` desde la carpeta del proyecto. |
 | La página se ve sin estilos | Recarga con Ctrl + F5. |
