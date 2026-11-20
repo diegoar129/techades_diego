@@ -21,7 +21,13 @@ En MySQL Workbench, conectado como `root`, ejecute los scripts en este orden:
 
 ## Instalación del portal
 
-Abra PowerShell en la carpeta que contiene este README y ejecute:
+Abra PowerShell en la carpeta que contiene este README. Si la terminal está en la raíz del repositorio (`techades_diego`), entre primero a la carpeta del portal:
+
+```powershell
+cd .\Pagina-Techandes-main\techandes-portal
+```
+
+Luego ejecute:
 
 ```powershell
 python -m venv .venv
