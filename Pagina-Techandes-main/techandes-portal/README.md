@@ -2,7 +2,7 @@
 
 Portal interno de ventas de TechAndes. Está hecho con Flask y se conecta a la base MySQL `techandes`.
 
-La interfaz usa una paleta turquesa y no muestra el logo ni el banner en ninguna página.
+La interfaz usa una paleta turquesa y muestra el banner de TechAndes en el encabezado del portal y en la pantalla de ingreso.
 
 ## Requisitos
 
@@ -72,7 +72,7 @@ Abra http://127.0.0.1:5000 . Sin sesión, cualquier página lleva a `/login`. Pa
 - **Clientes:** búsqueda, registro e historial. El correo del taller `andres.gomez1@correo.com` ya existe.
 - **Nueva venta:** pedido en una transacción. Descuenta stock y guarda el precio del momento.
 - **Pedidos:** consulta y cambio de estado. Al cancelar, las unidades vuelven al inventario.
-- **Informes:** solo administrador. Ventas por categoría, ranking de vendedores, Top 5 de productos ordenable por unidades o valor vendido, y clientes sin compras.
+- **Informes:** solo administrador. Ventas por categoría y ranking de vendedores. En el Top 5, los botones **Unidades** y **Total** ordenan de mayor a menor; **Total** es la suma de unidades vendidas por su precio unitario. También muestra clientes sin compras.
 
 ## Cifras del volcado
 

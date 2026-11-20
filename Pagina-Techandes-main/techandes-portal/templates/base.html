@@ -11,6 +11,10 @@
   {% set seccion = request.blueprint %}
 
   <div class="marco">
+    <header class="banner">
+      <img src="{{ url_for('static', filename='img/banner.svg') }}" alt="TechAndes S.A.S.">
+    </header>
+
     {% if usuario %}
     <div class="bienvenida">
       <span>BIENVENIDO(A), <strong>{{ usuario.nombre }}</strong> · {{ usuario.cargo }}</span>

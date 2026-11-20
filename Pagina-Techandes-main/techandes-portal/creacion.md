@@ -88,12 +88,13 @@ Cada sección del menú es un blueprint en `rutas/`. `app.py` los registra. Si u
 
 Flask busca el HTML en `templates/` y las imágenes y estilos en `static/`. Esos nombres no se pueden cambiar.
 
-`templates/base.html` se escribe una vez y lo heredan las páginas de adentro. Ya no incluye el banner ni el logo. Tiene cuatro franjas:
+`templates/base.html` se escribe una vez y lo heredan las páginas de adentro. Tiene cinco franjas:
 
-1. La barra de bienvenida con el nombre, el cargo, el rol y Cerrar sesión. Esos datos salen de la sesión, no de un texto fijo.
-2. El menú. La pestaña activa se marca porque Flask sabe en qué módulo está la página. Informes solo se dibuja si el rol es `ADMIN`.
-3. El contenido, que cada página llena con su propio bloque.
-4. El pie con el año actual.
+1. El banner `static/img/banner.svg`.
+2. La barra de bienvenida con el nombre, el cargo, el rol y Cerrar sesión. Esos datos salen de la sesión, no de un texto fijo.
+3. El menú. La pestaña activa se marca porque Flask sabe en qué módulo está la página. Informes solo se dibuja si el rol es `ADMIN`.
+4. El contenido, que cada página llena con su propio bloque.
+5. El pie con el año actual.
 
 Los avisos de una sola vez (producto creado, stock insuficiente, sesión cerrada) se envían con `flash` y la plantilla los pinta de verde, rojo o ámbar.
 
@@ -192,8 +193,8 @@ Después se probó el portal con la cookie de sesión. `klozada` / `Ventas2026*`
 3. Envía el formulario. Flask compara el hash y, si coincide, guarda al empleado en la sesión.
 4. El navegador vuelve a `/productos/`. Ahora sí hay sesión.
 5. La ruta arma el SQL, `db.py` lo ejecuta en MySQL y devuelve diccionarios.
-6. Jinja mete esos diccionarios en la plantilla, que hereda el menú y el marco de `base.html`.
-7. El navegador pide `static/css/estilos.css`, que Flask entrega para aplicar los estilos.
+6. Jinja mete esos diccionarios en la plantilla, que hereda el banner y el menú de `base.html`.
+7. El navegador pide `static/css/estilos.css` y `static/img/banner.svg`; Flask los entrega para mostrar el diseño.
 8. Al terminar la petición, `db.py` cierra la conexión.
 
 Ese recorrido ya funciona en este equipo: `techandes_api` existe y `usuarios` tiene las 8 filas. Si se vuelve a importar `00_techandes_db.sql`, hay que ejecutar otra vez `01_usuarios.sql`, porque ese volcado deja la tabla de accesos vacía o la elimina. Si el ingreso vuelve a mostrar el 1045, falta volver a ejecutar `02_permisos.sql`.
